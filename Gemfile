@@ -32,8 +32,12 @@ gem 'httparty'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-gem 'cowsay'
+gem 'rails_12factor'
 
+
+
+gem "therubyracer"
+gem "twitter-bootstrap-rails"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 
 # Use unicorn as the app server

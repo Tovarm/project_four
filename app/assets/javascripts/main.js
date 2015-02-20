@@ -6,7 +6,7 @@ var $whole_question = $('.whole_question');
 var $body = $('body');
 var $hidden_answer;
 var $submit = $('.submit_answer_button');
-var $new_game = $('.new_game');
+var $new_game = $('#new_game');
 var $value;
 var counter = 5
 var $which_round = $('#which_round').text(counter + " ");
@@ -26,7 +26,7 @@ console.log("round is currently:" + $which_round.text());
 $('.reveal_answer').hide();
 $('.hidden_answer').hide();
 $('.individual_question').hide();
-$('.new_game').hide();
+$('#new_game').hide();
 
 // event listener to show question corresponding to the question mask clicked
 $('.whole_question').on('click', function(){
@@ -121,14 +121,14 @@ function right_answer(){
         console.log("GAME OVER!");
         $('#status').text("Sorry, game over. You should read the encyclopedia more often.");
         counter = 5;
-        $('.new_game').show();
+        $('#new_game').show();
       } 
     }
 })
 
 // ajax call to server to get new batch of questions
-  $('.new_game').on('click', function() {
-    $('.new_game').hide();
+  $('#new_game').on('click', function() {
+    $('#new_game').hide();
     console.log("new game button clicked");
       $.ajax({
         method: 'GET',

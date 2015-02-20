@@ -53,6 +53,9 @@
 			<h2 id="status">You're on turn number <span id="which_round"> </span></h2>
 			<h2>Your Score: $<span id="running_score"><%= 0 %></span></h2> 
 			<div id="reveal_answer"></div>
+			<button id = "new_game" type="button" class="btn btn-info">New Game</button>
+
+
 			<!-- method to parse api results -->
 		</div>
 	</div>	
@@ -63,8 +66,8 @@
   <div class="container">
 		<div class="row">
       <div class="col-md-4">
-				<h3>CATEGORY:</h3>
-				<strong><%= response["title"].upcase %></strong> </br>
+				<!-- <h3>CATEGORY:</h3> -->
+				<strong><span id="category_title"><%= response["title"].upcase %></strong> </span></br>
 				<!-- iterate over response["clues"] and append only the first 5 clues for each category -->
 			<% first_five = response["clues"].first(5) %>
 				<div class="question_answer_pair">	
@@ -109,7 +112,6 @@
 			<%render_results(@response2) %>
 			<%render_results(@response3) %>
 
-			<button id="new_game">New Game</button>
 			<!-- <h2>Total Score: $<span id="total_score">0</span></h2>
 --></body>
 </html>	
