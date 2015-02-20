@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+<!--     <link rel="icon" href="../../favicon.ico">
+-->
+<title>Play as a guest</title>
+
+<!-- Bootstrap core CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">WELCOME GUEST!</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<form class="navbar-form navbar-right">
+					<!-- <div class="form-group">
+						<input type="text" placeholder="Email" class="form-control">
+					</div>
+					<div class="form-group">
+						<input type="password" placeholder="Password" class="form-control">
+					</div>
+					<button type="submit" class="btn btn-default">Sign in</button> -->
+					<!-- <a href="/leaderboard" class="leaderboard_btn"><button type="button" class="btn btn-info">See Leaderboard</button></a> -->
+
+				</form>
+			</div><!--/.navbar-collapse -->
+		</div>
+	</nav>
+
+	<div class="jumbotron">
+		<div class="container">
+
+			<h1 id="title">Jeopardy!</h1>
+			<h2 id="status">You're on turn number <span id="which_round"> </span></h2>
+			<h2>Your Score: $<span id="running_score"><%= 0 %></span></h2> 
+			<div id="reveal_answer"></div>
+			<!-- method to parse api results -->
+		</div>
+	</div>	
+
+		<% def render_results(response) %> 
+
+		
+  <div class="container">
+		<div class="row">
+      <div class="col-md-4">
+				<h3>CATEGORY:</h3>
+				<strong><%= response["title"].upcase %></strong> </br>
+				<!-- iterate over response["clues"] and append only the first 5 clues for each category -->
+			<% first_five = response["clues"].first(5) %>
+				<div class="question_answer_pair">	
+					<% first_five.each do |question| %>
+					<!-- split answer into an array of words and downcase them -->
+					<% answer = question["answer"].downcase.split(" ") %>
+
+					<!-- show the word "question" instead of the actual question -->
+					<div class="whole_question">	
+						<h2 class="whole_question_id">QUESTION</h2>
+						<div class="value">	
+							<h3 class="value_id">$<%= question["value"] %></h3></br>
+						</div>
+						<div class="individual_question">
+							<%# questions_group = [] %>
+							<h2 class="individual_question_id"><%= question["question"] %></br></h2>
+							<h3>This answer contains <%= answer.length %> <%= answer.length === 1 ? "word" : "words"%></h3>
+
+							<input type="text" class="user_answer whole_question_id" placeholder="ANSWER HERE">
+							<a href="#top"> <button class="submit_answer_button whole_question_id">That's my answer and I'm sticking with it</button></a>
+
+						</div>
+						
+						<!-- answer is hidden by default in main.js -->
+						<div class="hidden_answer">
+							<% clean_word_array = [] %>
+							<% answer.each do |word| %>
+							<!-- remove any html tags, and non-essential words -->
+							<% clean_word = word.gsub(/(<\/?[a-zA-Z]+>)|\W(a)\s|\s(the)\s|\s(and)\s|\s(an)\s|\s(of)\s|\s(it)\s|\s(in)\s|\s(on)\s|\s(you)\s|\s(your)\s|\s(to)\s|\s+/i, "")%>
+							<% clean_word_array << clean_word %>
+							<% end %>
+							<!-- rejoin answer into a string -->
+							<%= clean_word_array.join(" ")%>
+						</div>
+					</div>
+				<% end %>
+			</div>
+			</div>	
+			<% end %>
+			<!-- call the method -->
+			<%render_results(@response) %>
+			<%render_results(@response2) %>
+			<%render_results(@response3) %>
+
+			<button id="new_game">New Game</button>
+			<!-- <h2>Total Score: $<span id="total_score">0</span></h2>
+--></body>
+</html>	
