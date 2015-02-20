@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+source 'https://rails-assets.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.7'
@@ -33,6 +33,8 @@ gem 'httparty'
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'rails_12factor'
+
+gem 'bootstrap-sass'
 
 
 
