@@ -17,6 +17,7 @@ var total_score = 0;
 // enter key can be used to submit answer
 $('.user_answer').keyup(function(event){
   if(event.keyCode == 13){
+    console.log("enter key pushed");
     $(this).next().click();
     }
 });
@@ -47,7 +48,7 @@ $('.whole_question').on('click', function(){
 
 // $('body').on('click', function(){
 //   $('#myModal').on('hidden.bs.modal', function () {
-//    window.reload();
+//    $(this).reload();
 //   })
 // })
 
@@ -76,7 +77,7 @@ function right_answer(){
 
   $('#reveal_answer').append('<p>' + hidden_answer.toUpperCase() + '</br>Nice job! You just earned ' + $value.text() + '</p>').addClass('reveal_answer_right')
   $('#reveal_answer').show();
-  $('.user_answer').addClass('already_answered');
+  $('.whole_question').addClass('already_answered');
 
 }
 
@@ -104,7 +105,7 @@ function right_answer(){
     $('#running_score').text(running_score);
     console.log(running_score);
     counter--;
-    $('#myModal').empty();
+    // $('#myModal').empty();
     $(this).parent().hide();
     $('.user_answer').addClass('already_answered');
 
