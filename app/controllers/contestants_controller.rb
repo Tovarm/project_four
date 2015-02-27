@@ -6,6 +6,9 @@ class ContestantsController < ApplicationController
 		@id = params["id"]
   end
 
+  def new
+    @contestant = Contestant.new
+  end
 
   def create
   	@contestant = Contestant.create({name: params["name"], username: params["username"], email: params["email"], password: params["password"], total_score: params["total_score"]})

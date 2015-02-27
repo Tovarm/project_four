@@ -8,9 +8,11 @@ Rails.application.routes.draw do
   resources :games
   resources :contestants
   
-  get '/session/new'
+  get '/session/new' => 'session#new'
 
   get '/leaderboard' => 'leaderboard#index'
+
+  get '/leaderboard/contestant/:id' => 'leaderboard#show'
 
   post '/session' => 'session#create'
 

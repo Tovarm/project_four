@@ -34,24 +34,15 @@
           <a class="navbar-brand" href="#"> </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-<!--           <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-default">Sign in</button>
-          </form>
- -->        </div><!--/.navbar-collapse -->
-      </div>
+           <button><a href="/contestants/new">Sign up to play</a></button>      
+        </div>
     </nav>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Sign up or sign in</h1>
-        <p>How much do you know about stuff?</p>
+        <h1>Sign in</h1>
+        <p>Welcome back!</p>
 
   </div>
     </div>
@@ -64,18 +55,15 @@
 <div class="container">
 
 <form method="POST" action="/session">
-  <div class="form-group">
     <label for="exampleInputUsername">Username</label>
-    <input type="text" name="name" class="form-control" id="inputUsername" placeholder="Enter username" required>
-  </div>
+    <input type="text" name="username" class="form-control" id="inputUsername" placeholder="Enter username" required>
 
-  <div class="form-group">
     <label for="exampleInputPassword">Password</label>
     <input type="password"  name="password" class="form-control" id="inputUsername" placeholder="Enter password" required>
+   
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
-    <!-- <input type="submit" name="submit" value="Let's Play!"/> -->
-    <a href="/games/contestant/<%=@contestant.id %>" class="play_button"><button type="button" class="btn btn-primary btn-lg">Log in!</button></a></br>
     <a href='/games'><button type="button" class="btn play_guest">Or play as a guest</button></a>
+    <input type="submit" value="Let's Play!">
   </div>
 </form>
 

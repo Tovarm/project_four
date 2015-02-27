@@ -18,7 +18,7 @@ var total_score = 0;
 $('.user_answer').keyup(function(event){
   if(event.keyCode == 13){
     console.log("enter key pushed");
-    $(this).next().click();
+    $(this).children().click();
     }
 });
 
@@ -26,32 +26,47 @@ console.log("round is currently:" + $which_round.text());
 
 $('.reveal_answer').hide();
 $('.hidden_answer').hide();
-$('.individual_question').hide();
+// $('.individual_question').hide();
 $('#new_game').hide();
 
 // event listener to show question corresponding to the question mask clicked
+// $('#launchMyModal').on('click', function(){
 $('.whole_question').on('click', function(){
+  // $(this).children().show();
   $user_answer = $(this).find('input');
   $hidden_answer = $(this).find('.hidden_answer');
   $value = $(this).find('.value_id');
+  $individual_question = $(this).find('.individual_question');
+  console.log($individual_question.text());
   var hidden_answer = $.trim($hidden_answer.text().toLowerCase());
   console.log(hidden_answer);
-
-  reveal_answer
-  if($('.individual_question').is (":hidden")){ 
-    $($(this).children()).slideDown();
-    $hidden_answer.hide();
-  } else {
-    console.log("question not shown")
-  }  
 });
 
-// $('body').on('click', function(){
-//   $('#myModal').on('hidden.bs.modal', function () {
-//    $(this).reload();
-//   })
-// })
+  $('#myModal').on('show.bs.modal', function (e) {
+    $buttonid = e.relatedTarget;
+    console.log("this is buttonid" + $buttonid);
+    // alert( $( '#myModal' ).data([$buttonid]) );
+  });
 
+
+  // $('body').on('hidden.bs.modal', '.modal', function () {
+  //       $('.modal-body').removeData('bs.modal');
+  //     });
+  // reveal_question
+  // if($('.individual_question').is (":hidden")){ 
+  //   $($(this).children()).slideDown();
+  //   $hidden_answer.hide();
+  // } else if($('.individual_question').is (":visible")){ 
+  //   $($(this).children()).slideUp();
+  // }  
+
+
+
+
+$('.launchMyModal').on('click', function(){
+  $('.modal-body').append($('.individual_question'))
+  var $individual_question
+})
 // each time user submits a wrong answer, counter decrements by 1
 $('.submit_answer_button').on('click', function(){
   // var $user_answer = $(this).find('input').val();
@@ -123,6 +138,17 @@ function right_answer(){
         $('#status').text("Sorry, game over. You should read the encyclopedia more often.");
         counter = 5;
         $('#new_game').show();
+             // when game is over, ajax call to post score to db
+      // ajax post score to db
+      console.log("button clicked");
+        $.ajax({
+          url: '/games',
+          method: 'POST',
+          dataType: 'json',
+          data: JSON.stringify({contestant_id: contestant_id, total_score: total_score})
+        }).done(function(data){
+          console.log(data)
+        })
       } 
     }
 })
@@ -139,19 +165,6 @@ function right_answer(){
         $('body').empty();
         $('body').append(data);
       })
-
-
-  // ajax post score to db
-  console.log("button clicked");
-    $.ajax({
-      url: '/games',
-      method: 'POST',
-      dataType: 'json',
-      data: JSON.stringify({contestant_id: contestant_id, game_score: running_score})
-    }).done(function(data){
-      console.log(data)
-    })
-  
   })
 });
 

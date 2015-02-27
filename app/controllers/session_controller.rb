@@ -3,7 +3,7 @@ class SessionController < ApplicationController
   # GET /session/new
   # get login page with login form
   def new
-
+    @contestant = Contestant.find_by(params["id"])
   end
 
   # POST /session
@@ -14,8 +14,8 @@ class SessionController < ApplicationController
       session[:contestant_id] = contestant.id
       redirect_to "/games/contestant/#{contestant.id}"
     else
-      binding.pry
-      redirect_to "/session/new"
+    binding.pry
+      redirect_to "/"
     end
   end
 
@@ -23,7 +23,7 @@ class SessionController < ApplicationController
   # log out of a user's session
   def destroy
     reset_session
-    redirect_to "/session/new"
+    redirect_to "/"
   end
 
 end
