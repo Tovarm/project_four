@@ -26,7 +26,7 @@ console.log("round is currently:" + $which_round.text());
 
 $('.reveal_answer').hide();
 $('.hidden_answer').hide();
-// $('.individual_question').hide();
+$('.individual_question').hide();
 $('#new_game').hide();
 
 // event listener to show question corresponding to the question mask clicked
@@ -42,16 +42,22 @@ $('.whole_question').on('click', function(){
   console.log(hidden_answer);
 });
 
+  
+
+  
   $('#myModal').on('show.bs.modal', function (e) {
-    $buttonid = e.relatedTarget;
-    console.log("this is buttonid" + $buttonid);
-    // alert( $( '#myModal' ).data([$buttonid]) );
+    var $button = $(e.relatedTarget);
+    var $modalButton = $($button).attr('class')
+    
+    if ($modalButton === 'has_id', 'btn', 'btn-primary', 'btn-lg'){ 
+      var $button_id = $(e.relatedTarget).data("buttonid");
+      var $container = $($button).parent().next();
+      var $container_id = $($button).parent().next('.has_id').attr('id');
+    }
+    $('.modal-body').text($container.text());
   });
 
 
-  // $('body').on('hidden.bs.modal', '.modal', function () {
-  //       $('.modal-body').removeData('bs.modal');
-  //     });
   // reveal_question
   // if($('.individual_question').is (":hidden")){ 
   //   $($(this).children()).slideDown();
@@ -63,10 +69,10 @@ $('.whole_question').on('click', function(){
 
 
 
-$('.launchMyModal').on('click', function(){
-  $('.modal-body').append($('.individual_question'))
-  var $individual_question
-})
+// $('.launchMyModal').on('click', function(){
+//   $('.modal-body').append($('.individual_question'))
+//   var $individual_question
+// })
 // each time user submits a wrong answer, counter decrements by 1
 $('.submit_answer_button').on('click', function(){
   // var $user_answer = $(this).find('input').val();

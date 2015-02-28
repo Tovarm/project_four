@@ -107,3 +107,8 @@ color: gray: 50px;
 .hidden_answer {
   color: white;
 }
+
+.has_id {
+  width: 186px;
+  height: 105px;
+}
