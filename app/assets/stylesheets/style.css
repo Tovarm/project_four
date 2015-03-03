@@ -55,7 +55,9 @@ body {
 /*}*/
 
 
-
+.whole_question_id {
+  text-align: center;
+}
 
 .whole_question {
   padding: 5px;
@@ -90,10 +92,6 @@ body {
   font-weight: bold;
 }
 
-#launch_modal {
-  width: 186px;
-}
-
 .category_title {
   font-size: 23px;
   height: 200px;
@@ -101,7 +99,7 @@ body {
 }
 
 .already_answered {
-color: gray: 50px;
+background-color: gray: 50px;
 }
 
 .hidden_answer {
@@ -109,6 +107,12 @@ color: gray: 50px;
 }
 
 .has_id {
-  width: 186px;
-  height: 105px;
+  width: 200px;
+  height: 150px;
+  text-align: center;
+}
+
+.launch_button {
+  width: 185px;
+  height: 100px;
 }

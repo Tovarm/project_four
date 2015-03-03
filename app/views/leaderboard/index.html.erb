@@ -75,16 +75,16 @@
     <% @game.each do |game| %>
     <div class="row">
       <div class="col-md-3">
-        <h2><%= @contestant.username%></h2>
+        <h4><%= @contestant.username%></h4>
         <p><a class="btn btn-default" href="#" role="button">View player profile &raquo;</a></p>
       </div>
 
       <div class="col-md-3">
-        <h2>Score:<%= game.game_score%></h2> 
+        <h4>Score:<%= game.game_score%></h4> 
       </div>
 
     <div class="col-md-6">
-        <h2>Score:<%= @contestant.total_score%></h2> 
+        <h4>Score:<%= @contestant.total_score%></h4> 
       </div>
     </div>
     <% end %>

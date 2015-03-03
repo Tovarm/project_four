@@ -40,37 +40,14 @@
 		</div>
 	</nav>
 
-	<!-- ***************** BEGIN modal ***************** -->
-
-							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-											<h4 class="modal-title" id="myModalLabel">Your Question:</h4>
-										</div>
-										<div class="modal-body">
-
-<!-- 			<	!-=========== Individual question goes here ========== -->
- 
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									</div>
-								</div>
-							</div>
-						</div>
-
-<!-- ***************** END modal ***************** -->
-
-
 	<div class="jumbotron">
 		<div class="container">
 
 			<h1 id="title">Jeopardy!</h1>
 			<h2 id="status">You're on turn number <span id="which_round"> </span></h2>
 			<h2>Your Score: $<span id="running_score"><%= 0 %></span></h2> 
-			<div id="reveal_answer"></div>
+			<div id="reveal_answer">
+			</div>
 			<button id = "new_game" type="button" class="btn btn-info">New Game</button>
 
 
@@ -86,31 +63,36 @@
 				<strong><span id="category_title"><%= response["title"].upcase %></strong> </span></br>
 				<!-- iterate over response["clues"] and append only the first 5 clues for each category -->
 				<% first_five = response["clues"].first(5) %>
-					<% first_five.each do |question| %>
-					<!-- split answer into an array of words and downcase them -->
-					<% answer = question["answer"].downcase.split(" ") %>
+				<% first_five.each do |question| %>
+				<!-- split answer into an array of words and downcase them -->
+				<% answer = question["answer"].downcase.split(" ") %>
 
-					<!-- show the word "question" instead of the actual question -->
-					<div class="whole_question">	
-						<h2 class="whole_question_id">QUESTION</h2>
-						<div class="value">	
+				<!-- show the word "question" instead of the actual question -->
+				<div class="whole_question has_id" id="<%=question["id"]%>">	
+					<h2 class="whole_question_id"></h2>
+					<div class="value">	
+						<!-- ***************** Begin modal button ***************** -->
+						<button type="button" class="launch_button has_id btn btn-primary btn-lg" data-buttonid="<%=question["id"]%>" data-toggle="modal" data-target="#myModal">
+							<h3 data-buttonid="<%=question["id"]%>" class="value_id">$<%= question["value"] %></h3></button></br>
+					</div>
+						<!-- ***************** END modal button ***************** -->
 
-<!-- ***************** Begin modal button ***************** -->
-							<button type="button" class="has_id btn btn-primary btn-lg" data-buttonid="<%=question["id"]%>" data-toggle="modal" data-target="#myModal">
-								<h3 class="value_id">$<%= question["value"] %></h3></button></br>
-							</div>
-<!-- ***************** END modal button ***************** -->
 
-						<div id="<%=question["id"]%>" class="has_id individual_question">
+						<!-- ***************** BEGIN modal contents ***************** -->
+					
+						<div class="has_id individual_question">
+								<div class="question_value">
+							<h3 data-buttonid="<%=question["id"]%>" class="value_id"><%= question["value"] %></h3>
+						</div>
 							<h2 class="individual_question_id"><%= question["question"] %></br></h2>
-							<h3>This answer contains <%= answer.length %> <%= answer.length === 1 ? "word" : "words"%></h3>
-
+							<!-- <h3>This answer contains <%# answer.length %> <%# answer.length === 1 ? "word" : "words"%></h3> -->
+						<div class="input">
 							<input type="text" class="user_answer whole_question_id" placeholder="ANSWER HERE">
 							<a href="#top"> <button class="submit_answer_button whole_question_id">That's my answer and I'm sticking with it</button></a>
 						</div>
-
-						<!-- answer is hidden by default in main.js -->
-						<div class="hidden_answer">
+						
+							<!-- answer is hidden by default in main.js -->
+						<div class="hidden_answer" data-buttonid="<%=question["id"]%>">
 							<% clean_word_array = [] %>
 							<% answer.each do |word| %>
 							<!-- remove any html tags, and non-essential words -->
@@ -119,16 +101,47 @@
 							<% end %>
 							<!-- rejoin answer into a string -->
 							<%= clean_word_array.join(" ")%>
+
+						</div>	
+					</div>
+						<!-- ***************** END modal contents ***************** -->
+
+
+						<!-- ***************** BEGIN modal ***************** -->
+
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="myModalLabel">Your Question---</h4>
+									</div>
+									<div class="modal-body">
+
+										<!-- 			<	!-=========== Individual question goes here ========== -->
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
 						</div>
+
+						<!-- ***************** END modal ***************** -->
+
+
+
+					
 					</div>
 
 					<% end %>
 				</div>	
-			<% end %>
-			<!-- call the method -->
-			<%render_results(@response) %>
-			<%render_results(@response2) %>
-			<%render_results(@response3) %>
+				<% end %>
+				<!-- call the method -->
+				<%render_results(@response) %>
+				<%render_results(@response2) %>
+				<%render_results(@response3) %>
 <!-- <h2>Total Score: $<span id="total_score">0</span></h2>
 --></body>
 </html>	
