@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Leaderboard</title>
+  <title>Leaderboard</title>
 </head>
 <body>
 </body>
@@ -9,202 +9,107 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
 <!--     <link rel="icon" href="../../favicon.ico">
- -->
-    <title>Leaderboard</title>
+-->
+<title>Leaderboard</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <!-- <link href="css/jumbotron.css" rel="stylesheet"> -->
-  </head>
+<!-- Custom styles for this template -->
+<!-- <link href="css/jumbotron.css" rel="stylesheet"> -->
+</head>
 
-  <body>
+<body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#"></a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right">
-            
-<!-- 
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div> -->
-        <a href="/session/delete"><button type="submit" class="logout">Log Out</button></a>
-
-        <a href="/games/contestant/<%=@contestant.id%>"  class="leaderboard_btn"><button type="button" class="btn btn-info">Back to Game</button></a>
-
-        
-          </form>
-
-
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"></a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <form class="navbar-form navbar-right">
+          <a href="/games/contestant/#{<%= @contestant_id%>}"><button>Back to Game</button></a>
+          <a href="/session/delete"><button type="submit" class="logout">Log Out</button></a>
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-      		<h2>Welcome <%= @contestant.username %></h2>
 
         <h1>Jeopardy Leaderboard</h1>
         <p>See how your skills stack up against other trivia nerds!</p>
-	</div>
+      </div>
     </div>
 
     <div class="container">
-      <!-- Example row of columns -->
-      
-<div class="row">
-       <div class="col-md-3">
-            <h2>Player</h2>
-          </div>
-        
-          <div class="col-md-9">
-            <h2>Top Score</h2>
-          </div>
-      </div>
-
       <div class="row">
-        <div class="col-md-3">
-          <h2><%= @contestant.username%></h2>
-          <p><a class="btn btn-default" href="#" role="button">View player profile &raquo;</a></p>
+       
+        <div class="col-md-2">
+          <h2>Ranking</h2>
         </div>
 
-        <div class="col-md-9">
-          <h2>Score:<%= @contestant.total_score%></h2> 
-       </div>
-      </div>
-
-      <div class="row">
-       <div class="col-md-3">
-            <h2>[player 2]</h2>
-            <p><a class="btn btn-default" href="#" role="button">View player profile &raquo;</a></p>
-          </div>
-        
- 				  <div class="col-md-9">
-            <h2>[player 2 score]</h2>
-          </div>
-      </div>
-
-      	  <div class="row">
-       <div class="col-md-3">
-            <h2>[player 3]</h2>
-            <p><a class="btn btn-default" href="#" role="button">View player profile &raquo;</a></p>
-          </div>
-        
-          <div class="col-md-9">
-            <h2>[player 3 score]</h2>
-          </div>
-      </div>
-
-     <div class="row">
-       <div class="col-md-3">
-            <h2>[player 4]</h2>
-            <p><a class="btn btn-default" href="#" role="button">View player profile &raquo;</a></p>
-          </div>
-        
-          <div class="col-md-9">
-            <h2>[player 4 score]</h2>
-          </div>
-      </div>
-
-       <div class="row">
-       <div class="col-md-3">
-            <h2>[player 5]</h2>
-            <p><a class="btn btn-default" href="#" role="button">View player profile &raquo;</a></p>
-          </div>
-        
-          <div class="col-md-9">
-            <h2>[player 5 score]</h2>
-          </div>
-      </div>
-        
-      <div class="row">
         <div class="col-md-3">
-          <h2>[player 6]</h2>
-          <p><a class="btn btn-default" href="#" role="button">View player profile &raquo;</a></p>
+          <h2>Player</h2>
         </div>
 
-        <div class="col-md-9">
-          <h2>[player 6 score]</h2> 
-       </div>
-      </div>
+        <div class="col-md-6">
+          <h2>High Score</h2>
+        </div>
 
+     </div>
+
+
+    <div class="container">
+    <% @game.each do |game| %>
       <div class="row">
-       <div class="col-md-3">
-            <h2>[player 7]</h2>
-            <p><a class="btn btn-default" href="#" role="button">View player profile &raquo;</a></p>
-          </div>
+
+        <div class="col-md-2">
+         <% count = 0 %>
+         <% 10.times do %>
+         <% count += 1 %>
+         <%= count %>
+          <% end %>
+
+        </div>
+
+        <div class="col-md-3">
+          <h3><%= game.username %></h3>
+        </div>
+
+        <div class="col-md-6">
+          <h3><%= game.game_score%></h3>
+        </div>
         
-          <div class="col-md-9">
-            <h2>[player 7 score]</h2>
-          </div>
-      </div>
+     </div>
 
-          <div class="row">
-       <div class="col-md-3">
-            <h2>[player 8]</h2>
-            <p><a class="btn btn-default" href="#" role="button">View player profile &raquo;</a></p>
-          </div>
-        
-          <div class="col-md-9">
-            <h2>[player 8 score]</h2>
-          </div>
-      </div>
-
-     <div class="row">
-       <div class="col-md-3">
-            <h2>[player 9]</h2>
-            <p><a class="btn btn-default" href="#" role="button">View player profile &raquo;</a></p>
-          </div>
-        
-          <div class="col-md-9">
-            <h2>[player 9 score]</h2>
-          </div>
-      </div>
-
-       <div class="row">
-       <div class="col-md-3">
-            <h2>[player 10]</h2>
-            <p><a class="btn btn-default" href="#" role="button">View player profile &raquo;</a></p>
-          </div>
-        
-      <div class="col-md-9">
-            <h2>[player 10 score]</h2>
-          </div>
-        
-        
+    <% end %>
 
 
-      </div>
-     </div> 
 
-      <hr>
 
-      <footer>
-        <p>&copy; Company 2014</p>
-      </footer>
-    </div> <!-- /container -->
+  </div>
+</div> 
+
+<hr>
+
+<footer>
+  <p>&copy; Company 2014</p>
+</footer>
+</div> <!-- /container -->
 
 
     <!-- Bootstrap core JavaScript
@@ -215,4 +120,4 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
   </body>
-</html>
+  </html>

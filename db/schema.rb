@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150219153927) do
 
   create_table "games", force: true do |t|
     t.integer "contestant_id"
+    t.string  "username"
     t.integer "game_score"
   end
 

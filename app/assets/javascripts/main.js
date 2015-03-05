@@ -11,16 +11,22 @@ var $value;
 var counter = 5;
 var $which_round = $('#which_round').text(counter + " ");
 var $user_answer;
-var running_score = 0;
+var game_score = 0;
 var total_score = 0;
+var contestant_id = $('#contestant_id').text();
+console.log("CONTESTANT ID IS " + contestant_id);
+var username = $('#username').text();
+console.log("USERNAME IS " + username);
 
 // enter key can be used to submit answer
-$('.user_answer').keyup(function(event){
-  if(event.keyCode == 13){
-    console.log("enter key pushed");
-    $(this).siblings('a').children();
-    }
-});
+$('.user_answer').keypress(function (e) {
+ var key = e.which;
+ if(key == 13)  // the enter key code
+  {
+    $('.submit_answer_button').click();
+    return false;  
+  }
+});   
 
 console.log("round is currently:" + $which_round.text());
 
@@ -57,23 +63,27 @@ $('.question_value').hide();
 
 
 $('#myModal').on('show.bs.modal', function (e) {
-    var $button = $(e.relatedTarget);
-    console.log("e.relatedTarget: " + $button);
+  var $button = $(e.relatedTarget);
+  console.log("e.relatedTarget: " + $button);
 
-    $button.removeClass('btn-primary');
-    $button.addClass('btn-default')
-  })
+  $button.removeClass('btn-primary');
+  $button.addClass('btn-default')
+})
 
 
 $('.whole_question').on("click", ".submit_answer_button", function() {
-  // alert("SUBMIT BUTTON CLICKED");
-// }); 
+
   var $hidden_answer = $(this).parents('.modal-body').children('.hidden_answer');
   var $value = parseInt($(this).parents('.modal-body').children('.question_value').text(), 10);
 
   var $user_answer = $(this).parent().parent().parent().find('input');
   var $individual_question = $(this).parents('.modal-body').children('h2');
 
+$(".user_answer").keyup(function(event){
+    if(event.keyCode == 13){
+        $($submit).click();
+    }
+});
 
   var hidden_answer = $.trim($hidden_answer.text().toLowerCase());
   console.log("THE QUESTION IS " + $individual_question.text());
@@ -99,9 +109,9 @@ function right_answer(){
   console.log("correct!");
 
   var dollar_amount = $value;
-  running_score = running_score + parseInt(dollar_amount, 10);
-  $('#running_score').text(running_score);
-  console.log(running_score);
+  game_score = game_score + parseInt(dollar_amount, 10);
+  $('#game_score').text(game_score);
+  console.log(game_score);
 
   $('#reveal_answer').append('<p>' + hidden_answer.toUpperCase() + '</br>Nice job! You just earned $' + $value + '</p>').addClass('reveal_answer_right')
   $('#reveal_answer').show();
@@ -115,7 +125,7 @@ function right_answer(){
    $('#reveal_answer').append('<p>Come on, take a guess</p></br>').addClass('reveal_answer_wrong')
     $('#reveal_answer').show();
   } 
-  //----- else if(user_answer === hidden_answer) { -----
+  //----- if user answer matches hidden answer  -----
   else if(user_answer.localeCompare(hidden_answer) === 0){
     right_answer();
     $(this).parent().hide()
@@ -123,19 +133,22 @@ function right_answer(){
     right_answer();
     $(this).parent().hide()
 
+    //------ if user answer does not match hidden answer ------
   } else if(user_answer != hidden_answer || user_answer.localeCompare(hidden_answer != 0 || hidden_answer.indexOf(user_answer) > 0)) {
     console.log("WRONG!!");
 
     var dollar_amount = $value;
-    running_score = running_score - parseInt(dollar_amount, 10);
-    $('#running_score').text(running_score);
-    console.log(running_score);
+    game_score = game_score - parseInt(dollar_amount, 10);
+    $('#game_score').text(game_score);
+    console.log(game_score);
     counter--;
+    $(this).parent().hide()
+
       
     $('#which_round').text(counter + " ");
     console.log($('#which_round').text());
   
-    $('#reveal_answer').append('<p>' + user_answer.toUpperCase() + '</br>Sorry, wrong answer. You\'ve lost ' + $value + '.</br> The right answer was "' + hidden_answer.toUpperCase() + '".</p></br>').addClass('reveal_answer_wrong')
+    $('#reveal_answer').append('<p>' + user_answer.toUpperCase() + '</br>Sorry, wrong answer. You\'ve lost $' + $value + '.</br> The right answer was "' + hidden_answer.toUpperCase() + '".</p></br>').addClass('reveal_answer_wrong')
     $('#reveal_answer').show();
   
       if(counter === 0){
@@ -144,16 +157,15 @@ function right_answer(){
         $('#status').text("Sorry, game over. You should read the encyclopedia more often.");
         counter = 5;
         $('#new_game').show();
-             // when game is over, ajax call to post score to db
-      // ajax post score to db
-      console.log("button clicked");
+           console.log("button clicked");
+         // when game is over, ajax call to post score to db
         $.ajax({
           url: '/games',
           method: 'POST',
           dataType: 'json',
-          data: JSON.stringify({contestant_id: contestant_id, total_score: total_score})
+          data: ({contestant_id: contestant_id, username: username, game_score: game_score})
         }).done(function(data){
-          console.log(data)
+          console.log("DATA :" + data)
         })
       } 
     }
@@ -161,16 +173,17 @@ function right_answer(){
 
 // ajax call to server to get new batch of questions
   $('#new_game').on('click', function() {
-    $('#new_game').hide();
+    // $('#new_game').hide();
     console.log("new game button clicked");
       $.ajax({
         method: 'GET',
         url: '/games'
       }).done(function(data){
-        // console.log(data);
+        console.log("SUCCESS");
         $('body').empty();
         $('body').append(data);
       })
+      
   })
 
 

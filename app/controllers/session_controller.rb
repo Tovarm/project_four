@@ -14,7 +14,7 @@ class SessionController < ApplicationController
       session[:contestant_id] = contestant.id
       redirect_to "/games/contestant/#{contestant.id}"
     else
-    binding.pry
+    # binding.pry
       redirect_to "/"
     end
   end

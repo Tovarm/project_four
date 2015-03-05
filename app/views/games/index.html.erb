@@ -28,7 +28,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/"> WELCOME guest!</a>
+				<a class="navbar-brand" href="/games"> WELCOME guest <span id="contestant_id"><%= @contestant.id %></span></a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<form class="navbar-form navbar-right">
@@ -45,7 +45,7 @@
 
 			<h1 id="title">Jeopardy!</h1>
 			<h2 id="status">You're on turn number <span id="which_round"> </span></h2>
-			<h2>Your Score: $<span id="running_score"><%= 0 %></span></h2> 
+			<h2>Your Score: $<span id="game_score"><%= 0 %></span></h2> 
 			<div id="reveal_answer">
 			</div>
 			<button id = "new_game" type="button" class="btn btn-info">New Game</button>
@@ -90,7 +90,7 @@
 							<input type="text" class="user_answer whole_question_id" placeholder="ANSWER HERE">
 							<a href="#top"> <button class="submit_answer_button whole_question_id">That's my answer and I'm sticking with it</button></a>
 						</div>
-						
+
 							<!-- answer is hidden by default in main.js -->
 						<div class="hidden_answer" data-buttonid="<%=question["id"]%>">
 							<% clean_word_array = [] %>

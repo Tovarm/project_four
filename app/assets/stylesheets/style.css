@@ -116,3 +116,15 @@ background-color: gray: 50px;
   width: 185px;
   height: 100px;
 }
+
+#username {
+  color: white;
+}
+
+#welcome {
+  color: white;
+}
+
+#contestant_id {
+  color: #1A1A1A;
+}

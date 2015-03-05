@@ -3,7 +3,8 @@ class ContestantsController < ApplicationController
 	def index
     @game = Game.all
 		@contestant = Contestant.all
-		@id = params["id"]
+		@contestant = Contestant.find_by(params["id"])
+    @id = params["id"]
   end
 
   def new
@@ -17,6 +18,7 @@ class ContestantsController < ApplicationController
   end
 
   def show
+    @contestant = Contestant.find(params[:id])
     @game = Game.all
     @contestant = Contestant.all
     @id = params["id"]
