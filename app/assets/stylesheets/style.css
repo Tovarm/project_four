@@ -107,9 +107,10 @@ background-color: gray;
 }
 
 .has_id {
-  width: 200px;
-  height: 150px;
+  width: 225px;
+  height: 145px;
   text-align: center;
+  padding: 0px;
 }
 
 .launch_button {

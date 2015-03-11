@@ -37,7 +37,7 @@ class GamesController < ApplicationController
 
  		# @contestant = Contestant.find(params["id"])
 	  @contestant = Contestant.find(params[:id])
-		@contestant_id = params["contestant_id"]
+		# @contestant_id = params["contestant_id"]
 		@game = Game.all
 	# binding.pry
 

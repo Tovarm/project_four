@@ -33,7 +33,7 @@ console.log("round is currently:" + $which_round.text());
 $('#reveal_answer').hide();
 $('.hidden_answer').hide();
 $('.individual_question').hide();
-$('#new_game').hide();
+// $('#new_game').hide();
 $('.question_value').hide();
   
   $('#myModal').on('show.bs.modal', function (e) {
@@ -48,6 +48,16 @@ $('.question_value').hide();
     if ($($button_id === $container_id)){
       $('.modal-body').html($question.html());
     }
+
+  //   $('.modal-title').text($('.category_title').text());
+
+  // var $title = $('.category_title').data("catid");
+  //   if ($title === $('.individual_question_id').data("catid")){
+  //     console.log("categories match!");
+  //     $('.modal-title').text($('.category_title').text());
+  //   } else {
+  //     console.log("categories don't match!");
+  //   }
   });
 
 
@@ -67,7 +77,7 @@ $('#myModal').on('show.bs.modal', function (e) {
   console.log("e.relatedTarget: " + $button);
 
   $button.removeClass('btn-primary');
-  $button.addClass('btn-default')
+  $button.addClass('btn-default');
 })
 
 
@@ -79,9 +89,10 @@ $('.whole_question').on("click", ".submit_answer_button", function() {
   var $user_answer = $(this).parent().parent().parent().find('input');
   var $individual_question = $(this).parents('.modal-body').children('h2');
 
-$(".user_answer").keyup(function(event){
+$('.user_answer').keydown(function(event){
     if(event.keyCode == 13){
-        $($submit).click();
+      console.log("Enter key pressed");
+        // $(this).siblings('a').children('submit_answer_button').trigger('click');
     }
 });
 
@@ -151,6 +162,8 @@ function right_answer(){
     $('#reveal_answer').append('<p>' + user_answer.toUpperCase() + '</br>Sorry, wrong answer. You\'ve lost $' + $value + '.</br> The right answer was "' + hidden_answer.toUpperCase() + '".</p></br>').addClass('reveal_answer_wrong')
     $('#reveal_answer').show();
   
+
+
       if(counter === 0){
         alert("GAME OVER");
         console.log("GAME OVER!");
@@ -158,7 +171,7 @@ function right_answer(){
         counter = 5;
         $('#new_game').show();
            console.log("button clicked");
-         // when game is over, ajax call to post score to db
+         // when game is lost, ajax call to post score to db
         $.ajax({
           url: '/games',
           method: 'POST',
@@ -167,7 +180,9 @@ function right_answer(){
         }).done(function(data){
           console.log("DATA :" + data)
         })
-      } 
+      } else if (counter != 0){
+        console.log("YOU WON")
+      }
     }
 })
 
@@ -177,7 +192,7 @@ function right_answer(){
     console.log("new game button clicked");
       $.ajax({
         method: 'GET',
-        url: '/games'
+        url: '/games/contestant/' + contestant_id
       }).done(function(data){
         console.log("SUCCESS");
         $('body').empty();

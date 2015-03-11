@@ -33,9 +33,11 @@
           </button>
           <a class="navbar-brand" href="#"> </a>
         </div>
+      <form class="navbar-form navbar-right">
         <div id="navbar" class="navbar-collapse collapse">
-           <button><a href="/contestants/new">Sign up to play</a></button>      
+           <a href="/contestants/new"><button type="submit" class="btn btn-warning">Sign up to play</button></a>     
         </div>
+      </form>
     </nav>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -63,7 +65,8 @@
    
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"/>
     <!-- <a href='/games'><button type="button" class="btn play_guest">Or play as a guest</button></a> -->
-    <input type="submit" value="Let's Play!">
+    <input type="submit" class="btn btn-primary" value="Let's Play!">
+     
   </div>
 </form>
 

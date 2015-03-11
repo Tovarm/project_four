@@ -12,10 +12,14 @@ class ContestantsController < ApplicationController
   end
 
   def create
+   #  if Contestant.exists?(:username => "#{params["username"]}")
+   #    redirect_to "/session/new"
+   #  else
   	@contestant = Contestant.create({name: params["name"], username: params["username"], email: params["email"], password: params["password"], total_score: params["total_score"]})
 
   	redirect_to "/session/new"
-  end
+  # end
+end
 
   def show
     @contestant = Contestant.find(params[:id])

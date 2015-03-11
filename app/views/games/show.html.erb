@@ -48,7 +48,7 @@
 			<h2>Your Score: $<span id="game_score"><%= 0 %></span></h2> 
 			<div id="reveal_answer">
 			</div>
-			<a href="/games/contestant/<%= @contestant.id%>"><button id = "new_game" type="button" class="btn btn-info">New Game</button></a>
+			<!-- <a href="/games/contestant/<%= @contestant.id%>"><button id = "new_game" type="button" class="btn btn-info">New Game</button></a> -->
 
 
 			<!-- method to parse api results -->
@@ -117,7 +117,7 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="myModalLabel"><%=	response["title"] %></h4>
+										<h4 class="modal-title" id="myModalLabel"><%#	response["title"] %></h4>
 									</div>
 									<div class="modal-body">
 
