@@ -19,6 +19,9 @@
 
 <body>
 
+
+
+
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -44,12 +47,11 @@
 		<div class="container">
 
 			<h1 id="title">Jeopardy!</h1>
-			<h2 id="status">You're on turn number <span id="which_round"> </span></h2>
+			<h2 id="status">Number of guesses you have left: <span id="which_round"> </span></h2>
 			<h2>Your Score: $<span id="game_score"><%= 0 %></span></h2> 
-			<div id="reveal_answer">
-			</div>
-			<!-- <a href="/games/contestant/<%= @contestant.id%>"><button id = "new_game" type="button" class="btn btn-info">New Game</button></a> -->
+			<div id="reveal_answer"></div>
 
+			<!-- <a href="/games/contestant/<%= @contestant.id%>"><button id = "new_game" type="button" class="btn btn-info">New Game</button></a> -->
 
 			<!-- method to parse api results -->
 		</div>
@@ -60,17 +62,29 @@
 		<div class="row">
 			<div class="col-md-4">
 				<!-- <h3>CATEGORY:</h3> -->
-				<strong><span data-catid="<%= response["id"]%>" class="category_title"><%= response["title"].upcase %></strong> </span></br>
+				<div class="title"><strong><span data-catid="<%= response["id"]%>" class="category_title"><%= response["title"].upcase %></strong> </span></br></div>
 				<!-- iterate over response["clues"] and append only the first 5 clues for each category -->
 				<% first_five = response["clues"].first(5) %>
 				<% first_five.each do |question| %>
 				<!-- split answer into an array of words and downcase them -->
 				<% answer = question["answer"].downcase.split(" ") %>
+			
 
+
+				<%# answer.gsub(/\w/, "_ " %>
+
+				<!-- <div class="dashes">	 -->
+					<%# answer = question["answer"] %>
+					<%# answer = answer.gsub(/\w/, "_ ") %>
+					<%# split = answer.split("") %>
+					<%# split.join (" ")%>
+
+				<!-- </div> -->
 				<!-- show the word "question" instead of the actual question -->
 				<div class="whole_question has_id" id="<%=question["id"]%>">	
 					<h2 class="whole_question_id"></h2>
 					<div class="value">	
+
 						<!-- ***************** Begin modal button ***************** -->
 						<button type="button" class="launch_button has_id btn btn-primary btn-lg" data-buttonid="<%=question["id"]%>" data-toggle="modal" data-target="#myModal">
 							<h3 data-buttonid="<%=question["id"]%>" class="value_id">$<%= question["value"] %></h3></button></br>
@@ -81,28 +95,42 @@
 						<!-- ***************** BEGIN modal contents ***************** -->
 					
 						<div class="has_id individual_question">
-								<div class="question_value">
-							<h3 data-buttonid="<%=question["id"]%>" class="value_id"><%= question["value"] %></h3>
+							<div class="question_value">
+							<h3 data-buttonid="<%=question["id"]%>" class="value_id"><span id="modal_value"><%= question["value"] %></span><span id="modal_category"> <%=response["title"].upcase%></span></br></h3>
 						</div>
+
 							<h2 class="individual_question_id" data-catid="<%= response["id"]%>" ><%= question["question"] %></br></h2>
 							<h3>This answer contains <%= answer.length %> <%= answer.length === 1 ? "word" : "words"%></h3>
+
+							<!-- placeholder="ANSWER HERE" size="50" -->
 						<div class="input">
-							<input type="text" class="user_answer whole_question_id" placeholder="ANSWER HERE">
-							<a href="#top"> <button class="submit_answer_button whole_question_id">That's my answer and I'm sticking with it</button></a>
+							<input type="text" class="user_answer whole_question_id" placeholder="ANSWER HERE" ></br>
+								<!-- answer is hidden by default in main.js -->
+						<div class="user_answer whole_question_id hidden_answer" data-buttonid="<%=question["id"]%>">
+								<% clean_word_array = [] %>
+								<% answer.each do |word| %>
+								<!-- remove any html6 tags -->
+								<% clean_word = word.gsub(/\\\\?|(<\/?[a-zA-Z]+>)/i, "")%>
+								<% answer = clean_word.gsub(/[a-zA-Z]/, "_ ")%>
+								<% answer = answer.gsub(/\s/, " ")%>
+
+<!-- |(a)\s|(the)|\s(and)\s|(an)|\s(of)\s|\s(it)\s|\s(in)\s|\s(on)\s|\s(you)\s|\s(your)\s|\s(to)\s|\s+|\\ -->
+								<% clean_word_array << clean_word %>
+							<!-- rejoin answer into a string -->
+							<!-- <div class="hint">
+								<button class="btn btn-warning hint_button">Click here for a hint!</button>
+								<%# clean_word.gsub(/\w/, "_ ")%>
+							</div> -->
+							<% end %>
+
+								<%= clean_word_array.join(" ")%>
+
 						</div>
 
-							<!-- answer is hidden by default in main.js -->
-						<div class="hidden_answer" data-buttonid="<%=question["id"]%>">
-							<% clean_word_array = [] %>
-							<% answer.each do |word| %>
-							<!-- remove any html tags, and non-essential words -->
-							<% clean_word = word.gsub(/(<\/?[a-zA-Z]+>)|\W(a)\s|\s(the)\s|\s(and)\s|\s(an)\s|\s(of)\s|\s(it)\s|\s(in)\s|\s(on)\s|\s(you)\s|\s(your)\s|\s(to)\s|\s+/i, "")%>
-							<% clean_word_array << clean_word %>
-							<% end %>
-							<!-- rejoin answer into a string -->
-							<%= clean_word_array.join(" ")%>
-
-						</div>	
+							<a href="#top"> <button class="btn btn-primary submit_answer_button whole_question_id">That's my answer and I'm sticking with it</button></a>
+							
+							<button type="button" class="give_up_close btn btn-danger" data-dismiss="modal">I give up</button>
+						</div>
 					</div>
 
 
@@ -125,26 +153,36 @@
 
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 									</div>
 								</div>
 							</div>
 						</div>
 
 						<!-- ***************** END modal ***************** -->
-
-
-
 					
 					</div>
 
 					<% end %>
 				</div>	
 				<% end %>
+
+				<% def second_call(response) %>
+		<% first_five = response["clues"].first(5) %>
+		<% first_five.each do |question| %>
+			<% if question["value"] == nil %>
+				<%# category_id = rand(0..18000) %>
+		  	<%# @response = HTTParty.get("http://jservice.io/api/category?id=#{category_id}") %>	
+		  	<%= question["value"] = "NIL" %>
+			<% end %>
+		<% end %>
+	<% end %>
+
 				<!-- call the method -->
 				<%render_results(@response) %>
 				<%render_results(@response2) %>
 				<%render_results(@response3) %>
+
+
 <!-- <h2>Total Score: $<span id="total_score">0</span></h2>
 --></body>
 </html>	
