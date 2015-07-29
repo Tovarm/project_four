@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'contestants#new'
+  root 'games#new'
 
   resources :games
   resources :contestants
@@ -20,28 +20,30 @@ Rails.application.routes.draw do
 
   get '/games/contestant/:id' => 'games#show'
 
-#               Prefix Verb   URI Pattern                     Controller#Action
-#            root GET    /                               welcome#index
-#           games GET    /games(.:format)                games#index
-#                 POST   /games(.:format)                games#create
-#        new_game GET    /games/new(.:format)            games#new
-#       edit_game GET    /games/:id/edit(.:format)       games#edit
-#            game GET    /games/:id(.:format)            games#show
-#                 PATCH  /games/:id(.:format)            games#update
-#                 PUT    /games/:id(.:format)            games#update
-#                 DELETE /games/:id(.:format)            games#destroy
-#     contestants GET    /contestants(.:format)          contestants#index
-#                 POST   /contestants(.:format)          contestants#create
-#  new_contestant GET    /contestants/new(.:format)      contestants#new
-# edit_contestant GET    /contestants/:id/edit(.:format) contestants#edit
-#      contestant GET    /contestants/:id(.:format)      contestants#show
-#                 PATCH  /contestants/:id(.:format)      contestants#update
-#                 PUT    /contestants/:id(.:format)      contestants#update
-#                 DELETE /contestants/:id(.:format)      contestants#destroy
-#     leaderboard GET    /leaderboard(.:format)          leaderboard#index
-#     session_new GET    /session/new(.:format)          session#new
-#         session POST   /session(.:format)              session#create
-#  session_delete GET    /session/delete(.:format)       session#destroy
+#         Prefix Verb   URI Pattern                           Controller#Action
+#            root GET    /                                     games#show
+#           games GET    /games(.:format)                      games#index
+#                 POST   /games(.:format)                      games#create
+#        new_game GET    /games/new(.:format)                  games#new
+#       edit_game GET    /games/:id/edit(.:format)             games#edit
+#            game GET    /games/:id(.:format)                  games#show
+#                 PATCH  /games/:id(.:format)                  games#update
+#                 PUT    /games/:id(.:format)                  games#update
+#                 DELETE /games/:id(.:format)                  games#destroy
+#     contestants GET    /contestants(.:format)                contestants#index
+#                 POST   /contestants(.:format)                contestants#create
+#  new_contestant GET    /contestants/new(.:format)            contestants#new
+# edit_contestant GET    /contestants/:id/edit(.:format)       contestants#edit
+#      contestant GET    /contestants/:id(.:format)            contestants#show
+#                 PATCH  /contestants/:id(.:format)            contestants#update
+#                 PUT    /contestants/:id(.:format)            contestants#update
+#                 DELETE /contestants/:id(.:format)            contestants#destroy
+#     session_new GET    /session/new(.:format)                session#new
+#     leaderboard GET    /leaderboard(.:format)                leaderboard#index
+#                 GET    /leaderboard/contestant/:id(.:format) leaderboard#show
+#         session POST   /session(.:format)                    session#create
+#  session_delete GET    /session/delete(.:format)             session#destroy
+#                 GET    /games/contestant/:id(.:format)       games#show
 
 
   # Example of regular route:
