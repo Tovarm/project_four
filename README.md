@@ -7,4 +7,4 @@ Built on Ruby on Rails using JavaScript, HTML, CSS, jQuery, AJAX, Bootstrap, Pos
 
 Designed and built by Tova Moskowitz
 
-[tovajeopardy.herokuapp.com](tovajeopardy.herokuapp.com)
+http://tovajeopardy.herokuapp.com
