@@ -36,11 +36,12 @@ gem 'rails_12factor'
 
 gem 'bootstrap-sass'
 
+# gem 'bootstrap', '~> 4.0.0.alpha6'
 
 
 gem "therubyracer"
 
-gem "twitter-bootstrap-rails"
+# gem "twitter-bootstrap-rails"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 
 # Use unicorn as the app server
@@ -51,4 +52,3 @@ gem "twitter-bootstrap-rails"
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
